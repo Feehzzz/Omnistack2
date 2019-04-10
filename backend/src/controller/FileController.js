@@ -14,6 +14,7 @@ class FileController {
 
         await box.save();
 
+        // sinalizando  a todos usuários que estão conectados a room que houve um novo upload
         req.io.sockets.in(box._id).emit('file', file);
 
         return res.json(file)
