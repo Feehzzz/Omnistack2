@@ -9,11 +9,18 @@ const io = require('socket.io')(server);
 
 
 io.on('connection', socket => {
-    console.log('ok');
+    socket.on('connectRoom', box => {
+        socket.join(box);
+    })
 });
 
 mongoose.connect('mongodb+srv://feehmdb:feehmdb@cluster0-rctbj.mongodb.net/omnidropweek?retryWrites=true', {
     useNewUrlParser: true
+});
+
+app.use((req, res) => {
+    req.io = io;
+    return next();
 });
 
 app.use(express.json());
@@ -24,5 +31,5 @@ app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp')));
 app.use(require('./routes'));
 
 server.listen(3000, () => {
-    console.log('ok')
+    console.log('Servidor rodando')
 });
