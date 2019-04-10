@@ -4,6 +4,7 @@ const path = require('path');
 const cors = require('cors');
 
 
+
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
@@ -22,7 +23,7 @@ mongoose.connect('mongodb+srv://feehmdb:feehmdb@cluster0-rctbj.mongodb.net/omnid
     useNewUrlParser: true
 });
 
-app.use((req, res) => {
+app.use((req, res, next) => {
     req.io = io;
     return next();
 });
