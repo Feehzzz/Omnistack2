@@ -1,7 +1,9 @@
+require('dotenv').config({path: './.env'});
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
+
 
 
 
@@ -19,8 +21,9 @@ io.on('connection', socket => {
 
 
 // conexão com database mongodb online
-mongoose.connect('mongodb+srv://feehmdb:feehmdb@cluster0-rctbj.mongodb.net/omnidropweek?retryWrites=true', {
+mongoose.connect('mongodb+srv://'+process.env.DBUSER+':'+process.env.DBPASS+'@'+process.env.DBHOST, {
     useNewUrlParser: true
+    
 });
 
 app.use((req, res, next) => {
